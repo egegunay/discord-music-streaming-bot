@@ -11,12 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^13.13.25",
+    "@types/node": "^13.13.52",
     "discord.js": "^11.6.4",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "opusscript": "0.0.7",
-    "typescript": "^3.9.7",
-    "ytdl-core": "^3.3.0"
+    "typescript": "^3.9.10",
+    "ytdl-core": "^4.9.1"
   }
 }

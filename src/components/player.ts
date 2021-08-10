@@ -59,6 +59,11 @@ export class Player {
     ).stream;
   }
 
+  changeVol(message: Message, args: string[]) {
+    this.getCurrentVoiceChannel()?.dispatcher.setVolume(parseFloat(args[0]))
+    message.channel.send(`Volume has been set to: ${args[0]}`)
+  }
+
   stop() {
     const playlist = this.getCurrentPlaylist();
     this.getCurrentVoiceChannel()?.disconnect();
@@ -150,6 +155,14 @@ ${songName}
           }
       },
       {
+        shortVerb: 'vol',
+        verb:'volume',
+        action: (instance: Player) =>
+          (message: Message, args: string[]) => {
+            instance.changeVol(message, args)
+          }
+      },
+      {
         shortVerb: 's',
         verb: 'stop',
         action: (instance: Player) =>
@@ -158,6 +171,7 @@ ${songName}
           }
       },
       {
+        shortVerb: 'q',
         verb: 'queue',
         action: (instance: Player) =>
           (message: Message) => {
