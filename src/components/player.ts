@@ -74,6 +74,19 @@ export class Player {
     playlist.currentSong.value?.destroy();
   }
 
+  pause(message: Message) {
+    if (this.getCurrentVoiceChannel()?.dispatcher.paused) return
+    const playlist = this.getCurrentPlaylist()
+    if (playlist.songs.length > 0) this.getCurrentVoiceChannel()?.dispatcher.pause()
+    message.channel.send('Paused!')
+  }
+
+  resume(message: Message) {
+    if (!this.getCurrentVoiceChannel()?.dispatcher.paused) return
+    this.getCurrentVoiceChannel()?.dispatcher.resume()
+    message.channel.send('Resuming.')
+  }
+
   queue(message: Message) {
     const playlist = this.getCurrentPlaylist();
 
@@ -159,7 +172,21 @@ ${songName}
         verb:'volume',
         action: (instance: Player) =>
           (message: Message, args: string[]) => {
-            instance.changeVol(message, args)
+            instance.changeVol(message, args);
+          }
+      },
+      {
+        verb: 'pause',
+        action: (instance: Player) =>
+          (message: Message) => {
+            instance.pause(message);
+          }
+      },
+      {
+        verb: 'resume',
+        action: (instance: Player) =>
+          (message: Message) => {
+            instance.resume(message);
           }
       },
       {
